@@ -35,6 +35,10 @@ exports[`Metadata News AMP article should render correctly 1`] = `
     name="article:published_time"
   />
   <meta
+    content="This is a description"
+    name="Description"
+  />
+  <meta
     content="tagA"
     name="article:tag"
   />
@@ -136,6 +140,10 @@ exports[`Metadata News article should render correctly 1`] = `
   <meta
     content={1514811600000}
     name="article:published_time"
+  />
+  <meta
+    content="This is a description"
+    name="Description"
   />
   <meta
     content="tagA"
@@ -242,6 +250,10 @@ exports[`Metadata Persian AMP article should render correctly 1`] = `
     name="article:published_time"
   />
   <meta
+    content="This is a description"
+    name="Description"
+  />
+  <meta
     content="tagA"
     name="article:tag"
   />
@@ -345,6 +357,10 @@ exports[`Metadata Persian article should render correctly 1`] = `
     name="article:published_time"
   />
   <meta
+    content="This is a description"
+    name="Description"
+  />
+  <meta
     content="tagA"
     name="article:tag"
   />
@@ -446,6 +462,10 @@ exports[`Metadata articleSection is not null should render correctly 1`] = `
   <meta
     content={1514811600000}
     name="article:published_time"
+  />
+  <meta
+    content="This is a description"
+    name="Description"
   />
   <meta
     content="Politics"

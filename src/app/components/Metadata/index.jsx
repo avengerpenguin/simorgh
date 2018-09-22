@@ -38,6 +38,7 @@ const Metadata = ({
       <meta name="article:author" content={articleAuthor} />
       <meta name="article:modified_time" content={timeLastUpdated} />
       <meta name="article:published_time" content={timeFirstPublished} />
+      <meta name="Description" content={description} />
       {articleSection ? (
         <meta name="article:section" content={articleSection} />
       ) : null}
