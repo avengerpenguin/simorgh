@@ -38,13 +38,13 @@ const Metadata = ({
       <meta name="article:author" content={articleAuthor} />
       <meta name="article:modified_time" content={timeLastUpdated} />
       <meta name="article:published_time" content={timeFirstPublished} />
-      <meta name="Description" content={description} />
       {articleSection ? (
         <meta name="article:section" content={articleSection} />
       ) : null}
       {metaTags.map(tag => (
         <meta name="article:tag" content={tag} key={tag} />
       ))}
+      <meta name="description" content={description} />
       <meta name="og:description" content={description} />
       <meta name="og:image" content={defaultImage} />
       <meta name="og:image:alt" content={defaultImageAltText} />
