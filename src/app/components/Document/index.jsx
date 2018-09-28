@@ -2,9 +2,10 @@ import React from 'react';
 import ResourceHints from './ResourceHints';
 import '../../lib/globalStyles';
 import { C_POSTBOX } from '../../lib/constants/styles';
+import ReactHTMLParser from 'react-html-parser';
 
 /* eslint-disable react/prop-types */
-const Document = ({ assets, app, data, styleTags, helmet }) => {
+const Document = ({ assets, app, data, styleTags, helmet, orbit }) => {
   const htmlAttrs = helmet.htmlAttributes.toComponent();
   const meta = helmet.meta.toComponent();
   const title = helmet.title.toComponent();
@@ -25,10 +26,12 @@ const Document = ({ assets, app, data, styleTags, helmet }) => {
         <link rel="manifest" href="/manifest.json" />
         <ResourceHints />
         {title}
+        { ReactHTMLParser(orbit.head) }
         {links}
         {styleTags}
       </head>
       <body>
+        { ReactHTMLParser(orbit.bodyFirst) }
         {/* eslint-disable react/no-danger */
         /* disabling the rule that bans the use of dangerouslySetInnerHTML until a more appropriate implementation can be implemented */}
         <div id="root" dangerouslySetInnerHTML={{ __html: app }} />
@@ -38,6 +41,7 @@ const Document = ({ assets, app, data, styleTags, helmet }) => {
           }}
         />
         {scripts}
+        { ReactHTMLParser(orbit.bodyLast) }
       </body>
     </html>
   );

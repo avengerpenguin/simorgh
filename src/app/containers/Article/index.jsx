@@ -2,7 +2,6 @@ import React, { Fragment } from 'react';
 import { bool, string, shape } from 'prop-types';
 import Metadata from '../../components/Metadata';
 import Header from '../../components/Header';
-import Footer from '../Footer';
 import MainContent from '../MainContent';
 import articlePropTypes from '../../models/propTypes/article';
 import { ServiceContextProvider } from '../../components/ServiceContext';
@@ -65,7 +64,6 @@ const ArticleContainer = ({ loading, error, data }) => {
             {...metadataProps(amp, config, id, metadata, promo, service)}
           />
           <MainContent blocks={content.model.blocks} />
-          <Footer />
         </ServiceContextProvider>
       </Fragment>
     );

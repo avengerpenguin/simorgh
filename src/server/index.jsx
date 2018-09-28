@@ -1,3 +1,4 @@
+import fs from 'fs';
 import React from 'react';
 import express from 'express';
 import { ServerUni, loadInitialData } from '@jtart/uni';
@@ -8,6 +9,9 @@ import compression from 'compression';
 import expressStaticGzip from 'express-static-gzip';
 import routes from '../app/routes';
 import Document from '../app/components/Document';
+import WebModuleClient from '@bbc/webmodule-client';
+
+const webModuleClient = new WebModuleClient();
 
 /*
   Safely imports the assets manifest file that the 'RAZZLE_ASSETS_MANIFEST' does not exist.
@@ -74,17 +78,25 @@ server
 
       const styleTags = sheet.getStyleElement();
 
-      const doc = renderToStaticMarkup(
-        <Document
-          assets={assets}
-          app={app}
-          data={data}
-          styleTags={styleTags}
-          helmet={helmet}
-        />,
+      webModuleClient.get('http://localhost:5000/api', {headers: {'X-Feature': 'future'}}).then(webModule => {
+        const orbit = webModule.renderHTML();
+        const doc = renderToStaticMarkup(
+          <Document
+            assets={assets}
+            app={app}
+            data={data}
+            styleTags={styleTags}
+            helmet={helmet}
+            orbit={orbit}
+          />,
+        );
+        res.send(`<!doctype html>${doc}`);
+      })
+      .catch((error) => {
+        console.log(error);
+        res.status(500).send('oops');
+      }
       );
-
-      res.send(`<!doctype html>${doc}`);
     } catch ({ message }) {
       res.status(404).send(message);
     }
