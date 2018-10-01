@@ -29,6 +29,11 @@ describe('Document', () => {
     title: mockHelmetToComponent(<title>Test title</title>),
   };
   const styleTags = <style>{'html { color: red; }'}</style>;
+  const orbitMock = {
+    head: '<!-- Orbit Head -->',
+    bodyFirst: '<!-- Orbit bodyFirst -->',
+    bodyLast: '<!-- Orbit bodyLast -->',
+  };
 
   const shallowDocument = shallowRender(
     <Document
@@ -37,6 +42,7 @@ describe('Document', () => {
       data={data}
       helmet={helmet}
       styleTags={styleTags}
+      orbit={orbitMock}
     />,
   );
 

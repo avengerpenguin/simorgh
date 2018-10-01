@@ -3,6 +3,7 @@ import request from 'supertest';
 import * as reactDomServer from 'react-dom/server';
 import * as styledComponents from 'styled-components';
 import { loadInitialData } from '@jtart/uni';
+import nock from 'nock';
 import Document from '../app/components/Document';
 
 import server from './index';
@@ -37,6 +38,9 @@ jest.mock('@jtart/uni', () => ({
   ServerUni: jest.fn().mockImplementation(() => <h1>Mock app</h1>),
 }));
 
+nock.disableNetConnect();
+nock.enableNetConnect(/127.0.0.1/);
+
 styledComponents.ServerStyleSheet = jest.fn().mockImplementation(() => ({
   collectStyles: jest.fn().mockReturnValue(<h1>Mock app</h1>),
   getStyleElement: jest.fn().mockReturnValue(<styles />),
@@ -64,6 +68,21 @@ describe('Server', () => {
         loadInitialData.mockImplementationOnce(() =>
           Promise.resolve({ some: 'data' }),
         );
+        nock.cleanAll();
+        nock.disableNetConnect();
+        nock.enableNetConnect(/127.0.0.1/);
+
+        nock('https://navigation.api.bbci.co.uk:443')
+          .get('/api')
+          .reply(200, {
+            head: { html: '<!-- Orbit head -->' },
+            bodyFirst: { html: '<!-- Orbit bodyFirst -->' },
+            bodyLast: { html: '<!-- Orbit bodyLast -->' },
+          });
+      });
+
+      afterEach(() => {
+        nock.cleanAll();
       });
 
       it('should respond with rendered data', async () => {
@@ -80,6 +99,11 @@ describe('Server', () => {
             data={{ some: 'data' }}
             helmet={{ head: 'tags' }}
             styleTags={<styles />}
+            orbit={{
+              head: '<!-- Orbit head -->',
+              bodyFirst: '<!-- Orbit bodyFirst -->',
+              bodyLast: '<!-- Orbit bodyLast -->',
+            }}
           />,
         );
 
